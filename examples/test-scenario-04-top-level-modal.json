@@ -1,0 +1,44 @@
+{
+  "comment": "场景4: 顶层独立Modal组件 — 页面级弹窗",
+  "components": {
+    "GlobalSearchForm": {
+      "Type": "Form",
+      "Fields": [
+        { "name": "KEYWORD", "type": "Input", "label": "全局搜索" },
+        { "name": "DATE_RANGE", "type": "DatePicker", "label": "日期范围" }
+      ],
+      "url": { "query": "/api/global/search" }
+    },
+    "DataDetailModal": {
+      "Type": "Table",
+      "Layout": "Modal",
+      "Fields": [
+        { "name": "ID", "label": "编号" },
+        { "name": "NAME", "label": "名称" },
+        { "name": "VALUE", "label": "数值" },
+        { "name": "UPDATE_TIME", "label": "更新时间" }
+      ],
+      "url": { "load": "/api/data/detail" }
+    },
+    "ConfigModal": {
+      "Type": "Form",
+      "Layout": "Modal",
+      "Fields": [
+        { "name": "CONFIG_KEY", "type": "Input", "label": "配置键" },
+        { "name": "CONFIG_VALUE", "type": "Input", "label": "配置值" },
+        { "name": "CONFIG_TYPE", "type": "Select", "label": "类型", "options": [
+          { "value": "text", "label": "文本" },
+          { "value": "number", "label": "数字" },
+          { "value": "boolean", "label": "布尔" }
+        ]}
+      ],
+      "url": { "save": "/api/config/save" }
+    }
+  },
+  "DataFlow": {
+    "links": [
+      { "from": "GlobalSearchForm", "to": "DataDetailModal" },
+      { "from": "DataDetailModal", "to": "OUT" }
+    ]
+  }
+}

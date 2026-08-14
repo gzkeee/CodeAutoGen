@@ -1,0 +1,93 @@
+{
+  "comment": "场景8: 复杂仪表盘 — 多个Container + 独立组件混合，复杂数据流",
+  "components": {
+    "DateFilter": {
+      "Type": "Form",
+      "Fields": [
+        { "name": "START_DATE", "type": "DatePicker", "label": "开始日期" },
+        { "name": "END_DATE", "type": "DatePicker", "label": "结束日期" }
+      ],
+      "url": { "query": "/api/report/filter" }
+    },
+    "SummaryPanel": {
+      "components": {
+        "SummaryForm": {
+          "Type": "Form",
+          "Fields": [
+            { "name": "TYPE", "type": "Select", "label": "汇总类型", "options": [
+              { "value": "day", "label": "按日" },
+              { "value": "month", "label": "按月" },
+              { "value": "quarter", "label": "按季" }
+            ]}
+          ],
+          "url": { "load": "/api/report/types" }
+        },
+        "SummaryTable": {
+          "Type": "Table",
+          "Fields": [
+            { "name": "INDEX_NAME", "label": "指标名称" },
+            { "name": "CURRENT_VALUE", "label": "当前值" },
+            { "name": "PREVIOUS_VALUE", "label": "上期值" },
+            { "name": "CHANGE_RATE", "label": "变化率" }
+          ],
+          "url": { "load": "/api/report/summary" }
+        }
+      },
+      "DataFlow": {
+        "links": [
+          { "from": "IN", "to": "SummaryForm" },
+          { "from": "SummaryForm", "to": "SummaryTable" },
+          { "from": "SummaryTable", "to": "OUT" }
+        ]
+      }
+    },
+    "DetailPanel": {
+      "components": {
+        "DetailForm": {
+          "Type": "Form",
+          "Fields": [
+            { "name": "DETAIL_ID", "type": "Input", "label": "明细ID", "disabled": true }
+          ],
+          "url": { "load": "/api/report/detail/load" }
+        },
+        "DetailTable": {
+          "Type": "Table",
+          "Fields": [
+            { "name": "ITEM_NAME", "label": "项目名称" },
+            { "name": "ITEM_VALUE", "label": "项目值" },
+            { "name": "ITEM_DATE", "label": "日期" }
+          ],
+          "url": { "load": "/api/report/detail/list" }
+        }
+      },
+      "DataFlow": {
+        "links": [
+          { "from": "IN", "to": "DetailForm" },
+          { "from": "DetailForm", "to": "DetailTable" },
+          { "from": "DetailTable", "to": "OUT" }
+        ]
+      }
+    },
+    "ExportModal": {
+      "Type": "Form",
+      "Layout": "Modal",
+      "Fields": [
+        { "name": "EXPORT_FORMAT", "type": "Select", "label": "导出格式", "options": [
+          { "value": "excel", "label": "Excel" },
+          { "value": "csv", "label": "CSV" },
+          { "value": "pdf", "label": "PDF" }
+        ]},
+        { "name": "EXPORT_DATE", "type": "DatePicker", "label": "数据日期" }
+      ],
+      "url": { "save": "/api/report/export" }
+    }
+  },
+  "DataFlow": {
+    "links": [
+      { "from": "DateFilter", "to": "SummaryPanel" },
+      { "from": "DateFilter", "to": "DetailPanel" },
+      { "from": "SummaryPanel", "to": "DetailPanel" },
+      { "from": "SummaryPanel", "to": "ExportModal" }
+    ]
+  }
+}

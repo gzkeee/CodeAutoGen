@@ -1,0 +1,50 @@
+{
+  "comment": "场景3: Form→Form级联 - 省市区三级联动",
+  "components": {
+    "CascadeDemo": {
+      "components": {
+        "ProvinceForm": {
+          "Type": "Form",
+          "Fields": [
+            { "name": "PROVINCE", "type": "Select", "label": "省份", "options": [
+              { "value": "11", "label": "北京市" },
+              { "value": "44", "label": "广东省" }
+            ]},
+            { "name": "REMARK", "type": "Input", "label": "备注" }
+          ],
+          "url": {
+            "load": "/api/region/provinces",
+            "query": "/api/region/query"
+          }
+        },
+        "CityForm": {
+          "Type": "Form",
+          "Fields": [
+            { "name": "CITY", "type": "Select", "label": "城市", "options": [
+              { "value": "1101", "label": "东城区" },
+              { "value": "4401", "label": "广州市" }
+            ]}
+          ],
+          "url": { "load": "/api/region/cities" }
+        },
+        "ResultTable": {
+          "Type": "Table",
+          "Fields": [
+            { "name": "REGION_CODE", "label": "区域编码" },
+            { "name": "REGION_NAME", "label": "区域名称" },
+            { "name": "LEVEL", "label": "层级" }
+          ],
+          "url": { "load": "/api/region/result" }
+        }
+      },
+      "DataFlow": {
+        "links": [
+          { "from": "ProvinceForm", "to": "CityForm" },
+          { "from": "ProvinceForm", "to": "ResultTable" },
+          { "from": "CityForm", "to": "ResultTable" }
+        ]
+      }
+    }
+  },
+  "DataFlow": { "links": [] }
+}

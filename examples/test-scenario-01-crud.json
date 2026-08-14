@@ -1,0 +1,80 @@
+{
+  "comment": "场景1: 标准CRUD - 一个Container包含查询表格+新增Modal+编辑Modal",
+  "components": {
+    "UserManager": {
+      "components": {
+        "SearchForm": {
+          "Type": "Form",
+          "Fields": [
+            { "name": "USER_NAME", "type": "Input", "label": "用户名" },
+            { "name": "DEPT_ID", "type": "Select", "label": "部门", "options": [
+              { "value": "D001", "label": "技术部" },
+              { "value": "D002", "label": "市场部" }
+            ]},
+            { "name": "STATUS", "type": "Select", "label": "状态", "options": [
+              { "value": "1", "label": "启用" },
+              { "value": "0", "label": "停用" }
+            ]}
+          ],
+          "url": { "query": "/api/user/list" }
+        },
+        "UserTable": {
+          "Type": "Table",
+          "Fields": [
+            { "name": "USER_NAME", "label": "用户名" },
+            { "name": "DEPT_NAME", "label": "部门" },
+            { "name": "STATUS", "label": "状态" },
+            { "name": "EMAIL", "label": "邮箱" },
+            { "name": "CREATE_TIME", "label": "创建时间" }
+          ],
+          "url": { "load": "/api/user/page" }
+        },
+        "AddUserModal": {
+          "Type": "Form",
+          "Layout": "Modal",
+          "Fields": [
+            { "name": "USER_NAME", "type": "Input", "label": "用户名" },
+            { "name": "PASSWORD", "type": "Input", "label": "密码" },
+            { "name": "DEPT_ID", "type": "Select", "label": "部门", "options": [
+              { "value": "D001", "label": "技术部" },
+              { "value": "D002", "label": "市场部" }
+            ]},
+            { "name": "EMAIL", "type": "Input", "label": "邮箱" }
+          ],
+          "url": { "save": "/api/user/add" }
+        },
+        "EditUserModal": {
+          "Type": "Form",
+          "Layout": "Modal",
+          "Fields": [
+            { "name": "USER_ID", "type": "Input", "label": "用户ID", "disabled": true },
+            { "name": "USER_NAME", "type": "Input", "label": "用户名" },
+            { "name": "DEPT_ID", "type": "Select", "label": "部门", "options": [
+              { "value": "D001", "label": "技术部" },
+              { "value": "D002", "label": "市场部" }
+            ]},
+            { "name": "EMAIL", "type": "Input", "label": "邮箱" },
+            { "name": "STATUS", "type": "Select", "label": "状态", "options": [
+              { "value": "1", "label": "启用" },
+              { "value": "0", "label": "停用" }
+            ]}
+          ],
+          "url": {
+            "load": "/api/user/detail",
+            "save": "/api/user/update"
+          }
+        }
+      },
+      "DataFlow": {
+        "links": [
+          { "from": "SearchForm", "to": "UserTable" },
+          { "from": "AddUserModal", "to": "UserTable" },
+          { "from": "EditUserModal", "to": "UserTable" },
+          { "from": "UserTable", "to": "EditUserModal" },
+          { "from": "UserTable", "to": "OUT" }
+        ]
+      }
+    }
+  },
+  "DataFlow": { "links": [] }
+}

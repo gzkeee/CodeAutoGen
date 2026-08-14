@@ -1,0 +1,26 @@
+{
+  "name": "code-generator",
+  "version": "1.0.0",
+  "description": "前端代码生成工具 - 将 JSON 配置编译为 React + Ant Design 代码",
+  "bin": {
+    "gen-ui": "./bin/generate.js"
+  },
+  "scripts": {
+    "start": "node bin/generate.js",
+    "test": "jest",
+    "example": "node bin/generate.js -c ./examples/page-config.json -o ./output -n ProcessManage"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^12.0.0",
+    "fs-extra": "^11.0.0",
+    "prettier": "^3.0.0"
+  },
+  "keywords": [
+    "code-generator",
+    "react",
+    "antd",
+    "crud"
+  ],
+  "license": "MIT"
+}

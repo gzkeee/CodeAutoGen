@@ -1,0 +1,53 @@
+{
+  "components": {
+    "MainContainer": {
+      "components": {
+        "SearchForm": {
+          "Type": "Form",
+          "Fields": [
+            { "name": "PROCESS_ID", "type": "Input", "label": "流程号" },
+            { "name": "PROCESS_STATUS", "type": "Select", "label": "流程状态", "options": [
+              { "value": "1", "label": "待处理" },
+              { "value": "2", "label": "处理中" },
+              { "value": "3", "label": "处理完成" }
+            ]}
+          ],
+          "url": {
+            "query": "/api/process/query"
+          }
+        },
+        "ResultTable": {
+          "Type": "Table",
+          "Fields": [
+            { "name": "PROCESS_ID", "label": "流程号" },
+            { "name": "PROCESS_STATUS", "label": "流程状态" },
+            { "name": "TASK_ID", "label": "任务编号" }
+          ]
+        },
+        "AddForm": {
+          "Type": "Form",
+          "Layout": "Modal",
+          "Fields": [
+            { "name": "NAME", "type": "Input", "label": "名称" },
+            { "name": "TYPE", "type": "Select", "label": "类型", "options": [
+              { "value": "A", "label": "类型A" },
+              { "value": "B", "label": "类型B" }
+            ]}
+          ],
+          "url": {
+            "save": "/api/process/add"
+          }
+        }
+      },
+      "DataFlow": {
+        "links": [
+          { "from": "SearchForm", "to": "ResultTable" },
+          { "from": "AddForm", "to": "ResultTable" }
+        ]
+      }
+    }
+  },
+  "DataFlow": {
+    "links": []
+  }
+}

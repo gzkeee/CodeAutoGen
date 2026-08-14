@@ -1,0 +1,33 @@
+{
+  "comment": "数据字典测试 — Select 字段使用 dictName 动态加载选项",
+  "components": {
+    "UserForm": {
+      "Type": "Form",
+      "Fields": [
+        { "name": "USER_NAME", "type": "Input", "label": "用户名" },
+        { "name": "DEPT", "type": "Select", "label": "部门", "dictName": "SYS_DEPT" },
+        { "name": "ROLE", "type": "Select", "label": "角色", "dictName": "SYS_ROLE" },
+        { "name": "STATUS", "type": "Select", "label": "状态", "options": [
+          { "value": "1", "label": "启用" },
+          { "value": "0", "label": "停用" }
+        ]}
+      ],
+      "url": { "query": "/api/user/list" }
+    },
+    "UserTable": {
+      "Type": "Table",
+      "Fields": [
+        { "name": "USER_NAME", "label": "用户名" },
+        { "name": "DEPT", "label": "部门" },
+        { "name": "ROLE", "label": "角色" },
+        { "name": "STATUS", "label": "状态" }
+      ],
+      "url": { "load": "/api/user/page" }
+    }
+  },
+  "DataFlow": {
+    "links": [
+      { "from": "UserForm", "to": "UserTable" }
+    ]
+  }
+}

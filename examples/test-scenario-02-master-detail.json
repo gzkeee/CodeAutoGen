@@ -1,0 +1,46 @@
+{
+  "comment": "场景2: 主从表(Table→Table) - 订单+明细下钻",
+  "components": {
+    "OrderPage": {
+      "components": {
+        "OrderSearch": {
+          "Type": "Form",
+          "Fields": [
+            { "name": "ORDER_NO", "type": "Input", "label": "订单号" },
+            { "name": "ORDER_DATE", "type": "DatePicker", "label": "下单日期" },
+            { "name": "CUSTOMER", "type": "Input", "label": "客户名称" }
+          ],
+          "url": { "query": "/api/order/search" }
+        },
+        "OrderTable": {
+          "Type": "Table",
+          "Fields": [
+            { "name": "ORDER_NO", "label": "订单号" },
+            { "name": "CUSTOMER", "label": "客户" },
+            { "name": "TOTAL_AMOUNT", "label": "总金额" },
+            { "name": "ORDER_DATE", "label": "下单日期" },
+            { "name": "STATUS", "label": "状态" }
+          ],
+          "url": { "load": "/api/order/list" }
+        },
+        "OrderDetailTable": {
+          "Type": "Table",
+          "Fields": [
+            { "name": "PRODUCT_NAME", "label": "商品名称" },
+            { "name": "QUANTITY", "label": "数量" },
+            { "name": "PRICE", "label": "单价" },
+            { "name": "AMOUNT", "label": "小计" }
+          ],
+          "url": { "load": "/api/order/detail" }
+        }
+      },
+      "DataFlow": {
+        "links": [
+          { "from": "OrderSearch", "to": "OrderTable" },
+          { "from": "OrderTable", "to": "OrderDetailTable" }
+        ]
+      }
+    }
+  },
+  "DataFlow": { "links": [] }
+}

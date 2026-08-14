@@ -1,0 +1,68 @@
+{
+  "comment": "场景6: Container嵌套Container — 页面由多个Container自由组合",
+  "components": {
+    "HeaderPanel": {
+      "components": {
+        "QuickSearch": {
+          "Type": "Form",
+          "Fields": [
+            { "name": "KEYWORD", "type": "Input", "label": "快速搜索" }
+          ],
+          "url": { "query": "/api/quick/search" }
+        },
+        "QuickResult": {
+          "Type": "Table",
+          "Fields": [
+            { "name": "PRESET_NAME", "label": "预设方案" },
+            { "name": "CATEGORY", "label": "分类" },
+            { "name": "DATE_RANGE", "label": "日期" }
+          ]
+        }
+      },
+      "DataFlow": {
+        "links": [
+          { "from": "QuickSearch", "to": "QuickResult" },
+          { "from": "QuickResult", "to": "OUT" }
+        ]
+      }
+    },
+    "MainWorkArea": {
+      "comment": "从HeaderPanel接收筛选条件，自动填充查询表单",
+      "components": {
+        "TabSearch": {
+          "Type": "Form",
+          "comment": "CATEGORY和DATE_RANGE字段与QuickResult对齐，确保IN数据能自动回显",
+          "Fields": [
+            { "name": "CATEGORY", "type": "Select", "label": "分类", "options": [
+              { "value": "A", "label": "分类A" },
+              { "value": "B", "label": "分类B" }
+            ]},
+            { "name": "DATE_RANGE", "type": "DatePicker", "label": "日期" }
+          ],
+          "url": { "query": "/api/main/search" }
+        },
+        "MainTable": {
+          "Type": "Table",
+          "Fields": [
+            { "name": "ID", "label": "编号" },
+            { "name": "NAME", "label": "名称" },
+            { "name": "CATEGORY", "label": "分类" },
+            { "name": "STATUS", "label": "状态" }
+          ],
+          "url": { "load": "/api/main/list" }
+        }
+      },
+      "DataFlow": {
+        "links": [
+          { "from": "IN", "to": "TabSearch" },
+          { "from": "TabSearch", "to": "MainTable" }
+        ]
+      }
+    }
+  },
+  "DataFlow": {
+    "links": [
+      { "from": "HeaderPanel", "to": "MainWorkArea" }
+    ]
+  }
+}

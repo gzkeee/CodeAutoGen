@@ -1,0 +1,33 @@
+{
+  "comment": "场景7: 纯表格页面 — 只有表格，没有表单",
+  "components": {
+    "UserTable": {
+      "Type": "Table",
+      "Fields": [
+        { "name": "ID", "label": "用户ID" },
+        { "name": "NAME", "label": "姓名" },
+        { "name": "ROLE", "label": "角色" },
+        { "name": "DEPT", "label": "部门" },
+        { "name": "PHONE", "label": "电话" },
+        { "name": "EMAIL", "label": "邮箱" },
+        { "name": "CREATE_TIME", "label": "创建时间" },
+        { "name": "STATUS", "label": "状态" }
+      ],
+      "url": { "load": "/api/user/page" }
+    },
+    "RoleTable": {
+      "Type": "Table",
+      "Fields": [
+        { "name": "ROLE_ID", "label": "角色ID" },
+        { "name": "ROLE_NAME", "label": "角色名称" },
+        { "name": "ROLE_DESC", "label": "角色描述" }
+      ],
+      "url": { "load": "/api/role/list" }
+    }
+  },
+  "DataFlow": {
+    "links": [
+      { "from": "UserTable", "to": "RoleTable" }
+    ]
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "comment": "场景5: 全字段类型覆盖 — 测试所有支持的Ant Design字段",
+  "components": {
+    "FieldDemo": {
+      "components": {
+        "AllFieldsForm": {
+          "Type": "Form",
+          "Fields": [
+            { "name": "TEXT_FIELD", "type": "Input", "label": "文本输入" },
+            { "name": "DISABLED_FIELD", "type": "Input", "label": "禁用输入", "disabled": true },
+            { "name": "NUMBER_FIELD", "type": "InputNumber", "label": "数字输入" },
+            { "name": "DATE_FIELD", "type": "DatePicker", "label": "日期选择" },
+            { "name": "SINGLE_SELECT", "type": "Select", "label": "单选", "options": [
+              { "value": "A", "label": "选项A" },
+              { "value": "B", "label": "选项B" },
+              { "value": "C", "label": "选项C" }
+            ]},
+            { "name": "MULTI_SELECT", "type": "Select", "label": "多选", "options": [
+              { "value": "X", "label": "选项X" },
+              { "value": "Y", "label": "选项Y" }
+            ]}
+          ],
+          "url": { "query": "/api/fields/query" }
+        },
+        "AllFieldsTable": {
+          "Type": "Table",
+          "Fields": [
+            { "name": "TEXT_FIELD", "label": "文本" },
+            { "name": "NUMBER_FIELD", "label": "数字" },
+            { "name": "SINGLE_SELECT", "label": "单选" },
+            { "name": "DATE_FIELD", "label": "日期" },
+            { "name": "STATUS", "label": "状态" }
+          ],
+          "url": { "load": "/api/fields/list" }
+        }
+      },
+      "DataFlow": {
+        "links": [
+          { "from": "AllFieldsForm", "to": "AllFieldsTable" }
+        ]
+      }
+    }
+  },
+  "DataFlow": { "links": [] }
+}

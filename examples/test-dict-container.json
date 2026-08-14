@@ -1,0 +1,33 @@
+{
+  "comment": "数据字典测试 — Container 内部子组件使用 dictName",
+  "components": {
+    "MainPanel": {
+      "components": {
+        "SearchForm": {
+          "Type": "Form",
+          "Fields": [
+            { "name": "CATEGORY", "type": "Select", "label": "分类", "dictName": "PROD_CATEGORY" },
+            { "name": "STATUS", "type": "Select", "label": "状态", "dictName": "COMMON_STATUS" }
+          ],
+          "url": { "query": "/api/product/search" }
+        },
+        "ResultTable": {
+          "Type": "Table",
+          "Fields": [
+            { "name": "NAME", "label": "名称" },
+            { "name": "CATEGORY", "label": "分类" },
+            { "name": "PRICE", "label": "价格" }
+          ],
+          "url": { "load": "/api/product/list" }
+        }
+      },
+      "DataFlow": {
+        "links": [
+          { "from": "IN", "to": "SearchForm" },
+          { "from": "SearchForm", "to": "ResultTable" },
+          { "from": "ResultTable", "to": "OUT" }
+        ]
+      }
+    }
+  }
+}
